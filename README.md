@@ -4,6 +4,7 @@
    
   ![Image of themes](https://github.com/AlekseevArtem/TicTacToe/blob/92b88ca65eb295ea5a3401228ab2d2ae6ec51a6b/images/appearance.png)
     
-  Все выполнено под руководством Петра Арсентьева из [Job4j](https://job4j.ru/)
+  Все выполнено под руководством Петра Арсентьева из [Job4j](https://job4j.ru/).
+  
   Сборка осуществляется с помощью Gradle.  
-  Если у Вас возник вопрос ко мне, можете написать мне в [Telegram](https://tlgg.ru/Vesper1953)
+  Если у Вас возник вопрос ко мне, можете написать мне в [Telegram](https://tlgg.ru/Vesper1953).

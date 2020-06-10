@@ -13,19 +13,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="TicTacToy"
+        android:text="@string/tictactoe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/switchOpponent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Opponent: AI / Human"
-        android:textOff="AI"
-        android:textOn="Human" />
+        android:text="@string/opponent_ai_human"
+        android:textOff="@string/ai"
+        android:textOn="@string/human" />
+
+    <Switch
+        android:id="@+id/switchSide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change side: X / O"
+        android:textOff="X"
+        android:textOn="O" />
 
     <LinearLayout
         android:id="@+id/LayoutForButtons"
@@ -44,6 +52,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="00"
                 android:textSize="30sp" />
 
@@ -52,6 +61,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="01"
                 android:textSize="30sp" />
 
@@ -60,6 +70,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="02"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -75,6 +86,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="10"
                 android:textSize="30sp" />
 
@@ -83,6 +95,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="11"
                 android:textSize="30sp" />
 
@@ -91,6 +104,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="12"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -106,6 +120,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="20"
                 android:textSize="30sp" />
 
@@ -114,6 +129,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="21"
                 android:textSize="30sp" />
 
@@ -122,6 +138,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
+                android:onClick="clickOnButton"
                 android:tag="22"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -131,6 +148,6 @@
         android:id="@+id/restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/restart" />
 
 </LinearLayout>

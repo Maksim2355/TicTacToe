@@ -1,6 +1,5 @@
 package ru.job4j.tictactoy;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,11 +14,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
-    private Logic logic = Logic.getLogic();
+    private Logic logic = new Logic();
     private List<Button> buttons = new ArrayList<>();
 
     @Override
@@ -32,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
             LinearLayout layout = findViewById(layoutForButtons.getChildAt(i).getId());
             for (int j=0; j < layout.getChildCount(); j++){
                 Button button = findViewById(layout.getChildAt(j).getId());
-                button.setOnClickListener(this::clickOnButton);
                 buttons.add(button);
             }
         }
+
+        Switch switchSide = findViewById(R.id.switchSide);
+        switchSide.setOnClickListener(this::clickSwitchSide);
 
         Button restart = findViewById(R.id.restart);
         restart.setOnClickListener(this::clickOnRestart);
@@ -48,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT
         );
         toast.setGravity(Gravity.CENTER, 0, 0);
-        if (this.logic.isWin("X")) {
+        if (this.logic.checkWin("X")) {
             toast.setText("Победили Крестики! Начните новую Игру!");
             toast.show();
             return true;
-        } else if (this.logic.isWin("O")) {
+        } else if (this.logic.checkWin("O")) {
             toast.setText("Победили Нолики! Начните новую Игру!");
             toast.show();
             return true;
@@ -66,46 +65,44 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickOnButton(View view) {
         Button clicked = findViewById(view.getId());
-        if (clicked.getText() != Logic.X && clicked.getText() != Logic.O && !isWin()) {
+        if (clicked.getText() != Logic.firstMark && clicked.getText() != Logic.secondMark && !isWin()) {
             clicked.setText(logic.getValue());
-        String tag = (String) view.getTag();
-        logic.getMatrix()
-                [Character.digit(tag.charAt(0), 10)]
-                [Character.digit(tag.charAt(1), 10)] = logic.getValue();
-        logic.setTurn(logic.getTurn() + 1);
-        Switch sw = findViewById (R.id.switch2);
-        if (!sw.isChecked()) {
-            List<Button> temp = buttons.stream().filter(v -> v.getText() != Logic.X && v.getText() != Logic.O).collect(Collectors.toList());
-            if (temp.size() != 0) {
-                Button randomButton = temp.get(new Random().nextInt(temp.size()));
-                randomButton.setText(logic.getValue());
-                String tagAI = (String) randomButton.getTag();
-                logic.getMatrix()
-                        [Character.digit(tagAI.charAt(0), 10)]
-                        [Character.digit(tagAI.charAt(1), 10)] = logic.getValue();
+            logic.clickOnButton((String) clicked.getTag());
+            Switch sw = findViewById (R.id.switchOpponent);
+            if (!sw.isChecked() && !logic.isFilled() && !logic.checkWin(Logic.firstMark) && logic.getTurn() % 2 == 1) {
+                Button button = buttons.get(logic.clickOnButtonWithAI());
+                button.setText(logic.getValue());
                 logic.setTurn(logic.getTurn() + 1);
             }
-        }
-        isWin();
-        }
-    }
-
-    private void clearButtons() {
-        for (Button v : buttons) {
-            v.setText("");
+            isWin();
         }
     }
 
     public void clickOnRestart(View view) {
-        clearButtons();
+        for (Button v : buttons) {
+            v.setText("");
+        }
         logic.clearMatrix();
+        Switch switchSide =  findViewById(R.id.switchSide);
+        if (switchSide.isChecked()) {
+            logic.changeSide("O");
+        } else logic.changeSide("X");
+    }
+
+    public void clickSwitchSide(View view) {
+        logic.changeSide();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         for (Button v : buttons) {
-            outState.putString(String.valueOf(v.getId()), (String) v.getText());
+            outState.putString("buttons"+v.getId(), (String) v.getText());
+        }
+        for (int i = 0; i < logic.getMatrix().length; i++) {
+            for (int j = 0; j < logic.getMatrix().length; j++) {
+                outState.putString("matrix"+((i*logic.SIZE)+j), logic.getMatrix()[i][j]);
+            }
         }
     }
 
@@ -113,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         for (Button v : buttons) {
-            v.setText(savedInstanceState.getString(String.valueOf(v.getId())));
+            v.setText(savedInstanceState.getString("buttons"+v.getId()));
+        }
+        for (int i = 0; i < logic.getMatrix().length; i++) {
+            for (int j = 0; j < logic.getMatrix().length; j++) {
+                logic.getMatrix()[i][j] = savedInstanceState.getString("matrix"+((i*logic.SIZE)+j));
+            }
         }
     }
 }

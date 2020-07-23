@@ -1,4 +1,5 @@
 # TicTacToe
+[![Build Status](https://travis-ci.org/AlekseevArtem/TicTacToe.svg?branch=master)](https://travis-ci.org/AlekseevArtem/TicTacToe)
    Это мой учебный проект "Крестики-нолики". Правила такие же как и у известной одноименной игры. Есть возможность выбрать противника: бот или человек(с одного устройства). Также можно выбрать за что играть(крестики или нолики). На логику игры написаны JUnit тесты. 
    
    

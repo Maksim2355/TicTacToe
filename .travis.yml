@@ -1,12 +1,20 @@
 language: android
+dist: trusty
 android:
   components:
-    - tools # to get the new `repository-11.xml`
-    - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
-    - platform-tools
-    - build-tools-27.0.3
-    - android-27
+    - build-tools-29.0.2
+    - android-29
+
 before_install:
-  - yes | sdkmanager "platforms;android-27"
+  - chmod +x gradlew
+  - yes | sdkmanager "platforms;android-29"
+
 script:
-  - ./gradlew build connectedCheck
+  - ./gradlew build assembleDebug
+
+notifications:
+  email:
+    recipients:
+      -tema9991@mail.ru
+    on_success: never # default: change
+    on_failure: always # default: always

@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -35,6 +36,7 @@
         android:id="@+id/switchSide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="20sp"
         android:text="Change side: X / O"
         android:textOff="X"
         android:textOn="O" />
@@ -152,6 +154,7 @@
         android:id="@+id/restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/restart" />
+        android:text="@string/restart"
+        android:textAllCaps="false" />
 
 </LinearLayout>

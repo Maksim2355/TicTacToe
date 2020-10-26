@@ -12,15 +12,15 @@ public class Logic {
     public final int SIZE = 3;
     private String[][] matrix = new String[SIZE][SIZE];
 
-    public Logic () {
+    public Logic() {
     }
 
-    public Logic (String[][] matrix) {
+    public Logic(String[][] matrix) {
         this.matrix = matrix;
     }
 
-    public boolean isFilled (){
-        for(int i = 0; i < SIZE; i++){
+    public boolean isFilled() {
+        for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (matrix[i][j] != firstMark && matrix[i][j] != secondMark) return false;
             }
@@ -30,36 +30,46 @@ public class Logic {
 
     public boolean checkWin(String XorO) {
         String expect = null;
-        for (int index = 0; index < SIZE; index++) {expect += XorO;}
+        for (int index = 0; index < SIZE; index++) {
+            expect += XorO;
+        }
         String result = null;
 
-        for(int i = 0; i < SIZE; i++){
+        for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (matrix[i][j] != null) {result += matrix[i][j];}
+                if (matrix[i][j] != null) {
+                    result += matrix[i][j];
+                }
             }
             if (expect.equals(result)) {
                 return true;
             } else result = null;
         }
 
-        for(int j = 0; j < SIZE; j++){
+        for (int j = 0; j < SIZE; j++) {
             for (int i = 0; i < SIZE; i++) {
-                if (matrix[i][j] != null) {result += matrix[i][j];}
+                if (matrix[i][j] != null) {
+                    result += matrix[i][j];
+                }
             }
             if (expect.equals(result)) {
                 return true;
             } else result = null;
         }
 
-        for(int j = 0, i = 0; j < SIZE; j++, i++) {
-            if (matrix[i][j] != null) {result += matrix[i][j];}
+        for (int j = 0, i = 0; j < SIZE; j++, i++) {
+            if (matrix[i][j] != null) {
+                result += matrix[i][j];
+            }
         }
         if (expect.equals(result)) {
             return true;
         } else result = null;
 
-        for(int i = SIZE - 1, j = 0; j < SIZE; j++ , i--) {
-            if (matrix[i][j] != null) {result += matrix[i][j]; }
+        for (int i = SIZE - 1, j = 0; j < SIZE; j++, i--) {
+            if (matrix[i][j] != null) {
+                result += matrix[i][j];
+            }
         }
         return expect.equals(result);
     }
@@ -75,23 +85,23 @@ public class Logic {
 
     public int clickOnButtonWithAI() {
         List<Integer> temp = new ArrayList<>();
-        for(int i = 0; i < SIZE; i++) {
-            for(int j = 0; j < SIZE; j++) {
-                if(!(Objects.equals(matrix[i][j], firstMark)) && !(Objects.equals(matrix[i][j], secondMark))) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (!(Objects.equals(matrix[i][j], firstMark)) && !(Objects.equals(matrix[i][j], secondMark))) {
                     matrix[i][j] = secondMark;
-                    if(checkWin(secondMark)) return i*SIZE + j;
+                    if (checkWin(secondMark)) return i * SIZE + j;
                     matrix[i][j] = null;
-                    temp.add(i*SIZE + j);
+                    temp.add(i * SIZE + j);
                 }
             }
         }
-        for(int i = 0; i < SIZE; i++) {
-            for(int j = 0; j < SIZE; j++) {
-                if(!(Objects.equals(matrix[i][j], firstMark)) && !(Objects.equals(matrix[i][j], secondMark))) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (!(Objects.equals(matrix[i][j], firstMark)) && !(Objects.equals(matrix[i][j], secondMark))) {
                     matrix[i][j] = firstMark;
-                    if(checkWin(firstMark)) {
+                    if (checkWin(firstMark)) {
                         matrix[i][j] = secondMark;
-                        return i*SIZE + j;
+                        return i * SIZE + j;
                     }
                     matrix[i][j] = null;
                 }
@@ -102,14 +112,14 @@ public class Logic {
         return random;
     }
 
-    public void changeSide (){
-        if(turn == 0) {
+    public void changeSide() {
+        if (turn == 0) {
             firstMark = firstMark.equals("X") ? "O" : "X";
             secondMark = secondMark.equals("O") ? "X" : "O";
         }
     }
 
-    public void changeSide (String side){
+    public void changeSide(String side) {
         firstMark = side;
         secondMark = firstMark.equals("O") ? "X" : "O";
     }

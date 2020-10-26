@@ -2,6 +2,7 @@ package ru.job4j.tictactoy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -9,15 +10,17 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.Toast;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Logic logic = new Logic();
-    private List<Button> buttons = new ArrayList<>();
+    private final Logic logic = new Logic();
+    private final List<Button> buttons = new ArrayList<>();
+    private SwitchMaterial switchSide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         LinearLayout layoutForButtons = findViewById(R.id.LayoutForButtons);
-        for (int i=0; i < layoutForButtons.getChildCount(); i++){
+        for (int i = 0; i < layoutForButtons.getChildCount(); i++) {
             LinearLayout layout = findViewById(layoutForButtons.getChildAt(i).getId());
-            for (int j=0; j < layout.getChildCount(); j++){
+            for (int j = 0; j < layout.getChildCount(); j++) {
                 Button button = findViewById(layout.getChildAt(j).getId());
                 buttons.add(button);
             }
         }
 
-        Switch switchSide = findViewById(R.id.switchSide);
+        switchSide = findViewById(R.id.switchSide);
         switchSide.setOnClickListener(this::clickSwitchSide);
 
         Button restart = findViewById(R.id.restart);
@@ -68,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         if (clicked.getText() != Logic.firstMark && clicked.getText() != Logic.secondMark && !isWin()) {
             clicked.setText(logic.getValue());
             logic.clickOnButton((String) clicked.getTag());
-            Switch sw = findViewById (R.id.switchOpponent);
-            if (!sw.isChecked() && !logic.isFilled() && !logic.checkWin(Logic.firstMark) && logic.getTurn() % 2 == 1) {
+            if (!switchSide.isChecked() && !logic.isFilled() && !logic.checkWin(Logic.firstMark) && logic.getTurn() % 2 == 1) {
                 Button button = buttons.get(logic.clickOnButtonWithAI());
                 button.setText(logic.getValue());
                 logic.setTurn(logic.getTurn() + 1);
@@ -83,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
             v.setText("");
         }
         logic.clearMatrix();
-        Switch switchSide =  findViewById(R.id.switchSide);
         if (switchSide.isChecked()) {
             logic.changeSide("O");
         } else logic.changeSide("X");
@@ -97,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         for (Button v : buttons) {
-            outState.putString("buttons"+v.getId(), (String) v.getText());
+            outState.putString("buttons" + v.getId(), (String) v.getText());
         }
         for (int i = 0; i < logic.getMatrix().length; i++) {
             for (int j = 0; j < logic.getMatrix().length; j++) {
-                outState.putString("matrix"+((i*logic.SIZE)+j), logic.getMatrix()[i][j]);
+                outState.putString("matrix" + ((i * logic.SIZE) + j), logic.getMatrix()[i][j]);
             }
         }
     }
@@ -110,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         for (Button v : buttons) {
-            v.setText(savedInstanceState.getString("buttons"+v.getId()));
+            v.setText(savedInstanceState.getString("buttons" + v.getId()));
         }
         for (int i = 0; i < logic.getMatrix().length; i++) {
             for (int j = 0; j < logic.getMatrix().length; j++) {
-                logic.getMatrix()[i][j] = savedInstanceState.getString("matrix"+((i*logic.SIZE)+j));
+                logic.getMatrix()[i][j] = savedInstanceState.getString("matrix" + ((i * logic.SIZE) + j));
             }
         }
     }

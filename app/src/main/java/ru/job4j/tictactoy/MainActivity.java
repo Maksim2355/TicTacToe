@@ -2,7 +2,6 @@ package ru.job4j.tictactoy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,7 +19,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private final Logic logic = new Logic();
     private final List<Button> buttons = new ArrayList<>();
-    private SwitchMaterial switchSide;
+    private SwitchMaterial switchSide, switchOpponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         switchSide = findViewById(R.id.switchSide);
         switchSide.setOnClickListener(this::clickSwitchSide);
+        switchOpponent = findViewById(R.id.switchOpponent);
 
         Button restart = findViewById(R.id.restart);
         restart.setOnClickListener(this::clickOnRestart);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         if (clicked.getText() != Logic.firstMark && clicked.getText() != Logic.secondMark && !isWin()) {
             clicked.setText(logic.getValue());
             logic.clickOnButton((String) clicked.getTag());
-            if (!switchSide.isChecked() && !logic.isFilled() && !logic.checkWin(Logic.firstMark) && logic.getTurn() % 2 == 1) {
+            if (!switchOpponent.isChecked() && !logic.isFilled() && !logic.checkWin(Logic.firstMark) && logic.getTurn() % 2 == 1) {
                 Button button = buttons.get(logic.clickOnButtonWithAI());
                 button.setText(logic.getValue());
                 logic.setTurn(logic.getTurn() + 1);

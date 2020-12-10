@@ -12,52 +12,55 @@ public class StatisticDb {
     @ColumnInfo(name = "id")
     public long id;
 
-    //количнство игроков, которые приняли участие
     @ColumnInfo(name = "numbers_player")
     private int numbersPlayers;
 
-    //Число партий первого игрока
     @ColumnInfo(name = "numbers_parties_player")
     private int numbersPartiesPlayer;
 
-    //Число партий первого игрока
-    @ColumnInfo(name = "numbers_parties_win_and_lose_player")
-    @Embedded
-    private WinAndLosses numbersWinAndLosePartiesPlayer;
-
-    //Число партий второго игрока
     @ColumnInfo(name = "numbers_parties_second_player")
     private int numbersPartiesSecondPlayer;
 
-    //Число партий второго игрока
-    @ColumnInfo(name = "numbers_parties_win_and_lose_second_player")
-    @Embedded
-    private WinAndLosses numbersWinAndLosePartiesSecondPlayer;
-
-    //Число партий компьютера
     @ColumnInfo(name = "numbers_parties_computer")
     private int numbersPartiesComputer;
 
-    //Число партий компьютера
-    @ColumnInfo(name = "numbers_parties_win_and_lose_computer")
-    @Embedded
-    private WinAndLosses numbersWinAndLosePartiesComputer;
+    @ColumnInfo(name = "numbers_win_player")
+    private int numbersWinPartiesPlayer;
 
-    //Среднее время партии
+    @ColumnInfo(name = "numbers_lose_player")
+    private int numbersLosePartiesPlayer;
+
+    @ColumnInfo(name = "numbers_win_second_player")
+    private int numbersWinPartiesSecondPlayer;
+
+    @ColumnInfo(name = "numbers_lose_second_player")
+    private int numbersLosePartiesSecondPlayer;
+
+    @ColumnInfo(name = "numbers_win_computer")
+    private int numbersWinPartiesComputer;
+
+    @ColumnInfo(name = "numbers_lose_computer")
+    private int numbersLosePartiesComputer;
+
     @ColumnInfo(name = "average_bath_time")
     private int averageBathTime;
 
-    public StatisticDb(long id, int numbersPlayers, int numbersPartiesPlayer, WinAndLosses numbersWinAndLosePartiesPlayer, int numbersPartiesSecondPlayer, WinAndLosses numbersWinAndLosePartiesSecondPlayer, int numbersPartiesComputer, WinAndLosses numbersWinAndLosePartiesComputer, int averageBathTime) {
+
+    public StatisticDb(long id, int numbersPlayers, int numbersPartiesPlayer, int numbersPartiesSecondPlayer, int numbersPartiesComputer, int numbersWinPartiesPlayer, int numbersLosePartiesPlayer, int numbersWinPartiesSecondPlayer, int numbersLosePartiesSecondPlayer, int numbersWinPartiesComputer, int numbersLosePartiesComputer, int averageBathTime) {
         this.id = id;
         this.numbersPlayers = numbersPlayers;
         this.numbersPartiesPlayer = numbersPartiesPlayer;
-        this.numbersWinAndLosePartiesPlayer = numbersWinAndLosePartiesPlayer;
         this.numbersPartiesSecondPlayer = numbersPartiesSecondPlayer;
-        this.numbersWinAndLosePartiesSecondPlayer = numbersWinAndLosePartiesSecondPlayer;
         this.numbersPartiesComputer = numbersPartiesComputer;
-        this.numbersWinAndLosePartiesComputer = numbersWinAndLosePartiesComputer;
+        this.numbersWinPartiesPlayer = numbersWinPartiesPlayer;
+        this.numbersLosePartiesPlayer = numbersLosePartiesPlayer;
+        this.numbersWinPartiesSecondPlayer = numbersWinPartiesSecondPlayer;
+        this.numbersLosePartiesSecondPlayer = numbersLosePartiesSecondPlayer;
+        this.numbersWinPartiesComputer = numbersWinPartiesComputer;
+        this.numbersLosePartiesComputer = numbersLosePartiesComputer;
         this.averageBathTime = averageBathTime;
     }
+
 
     public long getId() {
         return id;
@@ -83,28 +86,12 @@ public class StatisticDb {
         this.numbersPartiesPlayer = numbersPartiesPlayer;
     }
 
-    public WinAndLosses getNumbersWinAndLosePartiesPlayer() {
-        return numbersWinAndLosePartiesPlayer;
-    }
-
-    public void setNumbersWinAndLosePartiesPlayer(WinAndLosses numbersWinAndLosePartiesPlayer) {
-        this.numbersWinAndLosePartiesPlayer = numbersWinAndLosePartiesPlayer;
-    }
-
     public int getNumbersPartiesSecondPlayer() {
         return numbersPartiesSecondPlayer;
     }
 
     public void setNumbersPartiesSecondPlayer(int numbersPartiesSecondPlayer) {
         this.numbersPartiesSecondPlayer = numbersPartiesSecondPlayer;
-    }
-
-    public WinAndLosses getNumbersWinAndLosePartiesSecondPlayer() {
-        return numbersWinAndLosePartiesSecondPlayer;
-    }
-
-    public void setNumbersWinAndLosePartiesSecondPlayer(WinAndLosses numbersWinAndLosePartiesSecondPlayer) {
-        this.numbersWinAndLosePartiesSecondPlayer = numbersWinAndLosePartiesSecondPlayer;
     }
 
     public int getNumbersPartiesComputer() {
@@ -115,12 +102,52 @@ public class StatisticDb {
         this.numbersPartiesComputer = numbersPartiesComputer;
     }
 
-    public WinAndLosses getNumbersWinAndLosePartiesComputer() {
-        return numbersWinAndLosePartiesComputer;
+    public int getNumbersWinPartiesPlayer() {
+        return numbersWinPartiesPlayer;
     }
 
-    public void setNumbersWinAndLosePartiesComputer(WinAndLosses numbersWinAndLosePartiesComputer) {
-        this.numbersWinAndLosePartiesComputer = numbersWinAndLosePartiesComputer;
+    public void setNumbersWinPartiesPlayer(int numbersWinPartiesPlayer) {
+        this.numbersWinPartiesPlayer = numbersWinPartiesPlayer;
+    }
+
+    public int getNumbersLosePartiesPlayer() {
+        return numbersLosePartiesPlayer;
+    }
+
+    public void setNumbersLosePartiesPlayer(int numbersLosePartiesPlayer) {
+        this.numbersLosePartiesPlayer = numbersLosePartiesPlayer;
+    }
+
+    public int getNumbersWinPartiesSecondPlayer() {
+        return numbersWinPartiesSecondPlayer;
+    }
+
+    public void setNumbersWinPartiesSecondPlayer(int numbersWinPartiesSecondPlayer) {
+        this.numbersWinPartiesSecondPlayer = numbersWinPartiesSecondPlayer;
+    }
+
+    public int getNumbersLosePartiesSecondPlayer() {
+        return numbersLosePartiesSecondPlayer;
+    }
+
+    public void setNumbersLosePartiesSecondPlayer(int numbersLosePartiesSecondPlayer) {
+        this.numbersLosePartiesSecondPlayer = numbersLosePartiesSecondPlayer;
+    }
+
+    public int getNumbersWinPartiesComputer() {
+        return numbersWinPartiesComputer;
+    }
+
+    public void setNumbersWinPartiesComputer(int numbersWinPartiesComputer) {
+        this.numbersWinPartiesComputer = numbersWinPartiesComputer;
+    }
+
+    public int getNumbersLosePartiesComputer() {
+        return numbersLosePartiesComputer;
+    }
+
+    public void setNumbersLosePartiesComputer(int numbersLosePartiesComputer) {
+        this.numbersLosePartiesComputer = numbersLosePartiesComputer;
     }
 
     public int getAverageBathTime() {

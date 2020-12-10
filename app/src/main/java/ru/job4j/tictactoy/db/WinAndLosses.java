@@ -1,29 +1,32 @@
 package ru.job4j.tictactoy.db;
 
+import androidx.room.Entity;
+
 public class WinAndLosses {
 
-    private int Win;
+    private int win;
 
-    private int Losses;
+    private int losses;
+
 
     public WinAndLosses(int win, int losses) {
-        Win = win;
-        Losses = losses;
+        this.win = win;
+        this.losses = losses;
     }
 
     public int getWin() {
-        return Win;
+        return win;
     }
 
     public void setWin(int win) {
-        Win = win;
+        this.win = win;
     }
 
     public int getLosses() {
-        return Losses;
+        return losses;
     }
 
     public void setLosses(int losses) {
-        Losses = losses;
+        this.losses = losses;
     }
 }

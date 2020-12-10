@@ -6,15 +6,15 @@
     <string name="human">Human</string>
     <string name="tictactoe">TicTacToe</string>
 
-    <string name="count_players">Число игроков в каждой партии: $d</string>
+    <string name="count_players">Число игроков в каждой партии: %1$d</string>
 
-    <string name="count_parties_players">Число партий первого игрока $d</string>
-    <string name="count_parties_second_players">Число партий второго игрока $d </string>
-    <string name="count_parties_computer">Число партий компьютера $d</string>
+    <string name="count_parties_players">Число партий первого игрока %1$d</string>
+    <string name="count_parties_second_players">Число партий второго игрока %1$d </string>
+    <string name="count_parties_computer">Число партий компьютера %1$d</string>
 
     <string name="count_win_losses_players">Первый игрок победил %1$d раз и проиграл %2$d раз</string>
     <string name="count_win_losses_second_players">Второй игрок победил %1$d раз и проиграл %2$d раз</string>
     <string name="count_win_losses_computer">Компьютер победил %1$d раз и проиграл %2$d раз</string>
 
-    <string name="average_time_parties">Среднее время партии $d</string>
+    <string name="average_time_parties">Среднее время партии %1$d</string>
 </resources>

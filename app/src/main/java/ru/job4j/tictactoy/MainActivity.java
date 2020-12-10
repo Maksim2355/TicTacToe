@@ -18,6 +18,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.job4j.tictactoy.db.StatisticDao;
 import ru.job4j.tictactoy.db.StatisticDb;
 import ru.job4j.tictactoy.db.WinAndLosses;
 
@@ -71,35 +72,38 @@ public class MainActivity extends AppCompatActivity {
         numbersWinAndLosePartiesComputer = findViewById(R.id.numbers_win_and_losses_tv);
         averageBathTime = findViewById(R.id.numbers_duration_party_tv);
 
-        List<StatisticDb> listStatisticDb = App.getInstance().getDatabase().getStatisticDao().getStatistic();
+        StatisticDao statisticDao = App.getInstance().getDatabase().getStatisticDao();
+        List<StatisticDb> listStatisticDb = statisticDao.getStatistic();
+        if (listStatisticDb.size() == 0) {
+            statisticDao.addStatistic(
+                    new StatisticDb(0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0)
+            );
+        }
 
-        if (listStatisticDb != null & listStatisticDb.size() > 0){
+        if (listStatisticDb != null && listStatisticDb.size() > 0) {
             StatisticDb statisticDb = listStatisticDb.get(0);
             numberPlayersTv.setText(getString(R.string.count_players, statisticDb.getNumbersPlayers()));
             numbersPartiesPlayerTv.setText(getString(R.string.count_parties_players, statisticDb.getNumbersPartiesPlayer()));
             numbersPartiesSecondPlayerTv.setText(getString(R.string.count_parties_second_players, statisticDb.getNumbersPartiesSecondPlayer()));
             numbersPartiesComputer.setText(getString(R.string.count_parties_computer, statisticDb.getNumbersPartiesComputer()));
 
-            if (statisticDb.getNumbersWinAndLosePartiesPlayer() != null){
-                WinAndLosses winAndLosses = statisticDb.getNumbersWinAndLosePartiesSecondPlayer();
-                numbersWinAndLosePartiesPlayerTv.setText(getString(R.string.count_win_losses_players, winAndLosses.getWin(), winAndLosses.getLosses()));
-            }else {
-                numbersWinAndLosePartiesPlayerTv.setText(getString(R.string.count_win_losses_players, 0, 0));
-            }
-            if (statisticDb.getNumbersWinAndLosePartiesPlayer() != null){
-                WinAndLosses winAndLosses = statisticDb.getNumbersWinAndLosePartiesSecondPlayer();
-                numbersWinAndLosePartiesSecondPlayerTv.setText(getString(R.string.count_win_losses_second_players, winAndLosses.getWin(), winAndLosses.getLosses()));
-            }else {
-                numbersWinAndLosePartiesSecondPlayerTv.setText(getString(R.string.count_win_losses_second_players, 0, 0));
-            }
-            if (statisticDb.getNumbersWinAndLosePartiesPlayer() != null){
-                WinAndLosses winAndLosses = statisticDb.getNumbersWinAndLosePartiesSecondPlayer();
-                numbersWinAndLosePartiesComputer.setText(getString(R.string.count_win_losses_computer, winAndLosses.getWin(), winAndLosses.getLosses()));
-            }else {
-                numbersWinAndLosePartiesComputer.setText(getString(R.string.count_win_losses_computer, 0, 0));
-            }
+            numbersWinAndLosePartiesPlayerTv.setText(getString(R.string.count_win_losses_players, statisticDb.getNumbersWinPartiesPlayer(), statisticDb.getNumbersLosePartiesPlayer()));
+            numbersWinAndLosePartiesSecondPlayerTv.setText(getString(R.string.count_win_losses_second_players, statisticDb.getNumbersWinPartiesSecondPlayer(), statisticDb.getNumbersLosePartiesSecondPlayer()));
+            numbersWinAndLosePartiesComputer.setText(getString(R.string.count_win_losses_computer, statisticDb.getNumbersWinPartiesComputer(), statisticDb.getNumbersLosePartiesComputer()));
+
             averageBathTime.setText(getString(R.string.count_players, statisticDb.getAverageBathTime()));
-        }else {
+        } else {
             numberPlayersTv.setText(getString(R.string.count_players, 0));
             numbersPartiesPlayerTv.setText(getString(R.string.count_parties_players, 0));
             numbersPartiesSecondPlayerTv.setText(getString(R.string.count_parties_second_players, 0));
@@ -155,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         logic.clearMatrix();
         if (switchSide.isChecked()) {
             logic.changeSide("O");
-        }else logic.changeSide("X");
+        } else logic.changeSide("X");
     }
 
     public void clickSwitchSide(View view) {

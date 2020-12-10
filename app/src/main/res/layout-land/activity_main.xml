@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/general"
@@ -13,166 +13,253 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:rotationX="30"
+        android:layout_gravity="center_horizontal"
+        android:rotationX="28"
         android:text="@string/tictactoe"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/LayoutForButtons"
-        app:layout_constraintEnd_toEndOf="@+id/LayoutForButtons"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/LayoutForButtons"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="50sp" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switchOpponent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/opponent_ai_human"
-        android:textOff="@string/ai"
-        android:textOn="@string/human"
-        app:layout_constraintBottom_toTopOf="@+id/switchSide"
-        app:layout_constraintEnd_toStartOf="@+id/LayoutForButtons"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switchSide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change side: X / O"
-        android:textOff="X"
-        android:textOn="O"
-        app:layout_constraintBottom_toTopOf="@+id/restart"
-        app:layout_constraintEnd_toEndOf="@+id/switchOpponent"
-        app:layout_constraintStart_toStartOf="@+id/switchOpponent"
-        app:layout_constraintTop_toBottomOf="@+id/switchOpponent" />
 
     <LinearLayout
-        android:id="@+id/LayoutForButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/LL1"
+            android:id="@+id/statistics_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="4dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/LayoutForButtons"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <Button
-                android:id="@+id/button00"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="00"
-                android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/button01"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="01"
-                android:textSize="30sp" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button02"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="02"
-                android:textSize="30sp" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchOpponent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/opponent_ai_human"
+                    android:textOff="@string/ai"
+                    android:textOn="@string/human" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchSide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change side: X / O"
+                    android:textOff="X"
+                    android:textOn="O" />
+
+
+                <Button
+                    android:id="@+id/restart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/restart" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/number_players_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_players"
+                    android:layout_marginTop="16dp"
+                    />
+                <TextView
+                    android:id="@+id/number_parties_players_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_parties_players"
+                    android:layout_marginTop="4dp"
+                    />
+                <TextView
+                    android:id="@+id/number_parties_second_players_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_parties_second_players"
+                    android:layout_marginTop="4dp"
+                    />
+                <TextView
+                    android:id="@+id/number_parties_computer_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_parties_computer"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <TextView
+                    android:id="@+id/numbers_win_and_losses_player_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_win_losses_second_players"
+                    android:layout_marginTop="4dp"
+                    />
+                <TextView
+                    android:id="@+id/numbers_win_and_losses_second_player_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_win_losses_second_players"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <TextView
+                    android:id="@+id/numbers_win_and_losses_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_win_losses_computer"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <TextView
+                    android:id="@+id/numbers_duration_party_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/average_time_parties"
+                    android:layout_marginTop="4dp"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/LL2"
+            android:id="@+id/LayoutForButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <Button
-                android:id="@+id/button10"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="10"
-                android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/button11"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="11"
-                android:textSize="30sp" />
+            <LinearLayout
+                android:id="@+id/LL1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button12"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="12"
-                android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button00"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="00"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button01"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="01"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button02"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="02"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button10"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="10"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button11"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="11"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button12"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="12"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button20"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="20"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button21"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="21"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/button22"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:onClick="clickOnButton"
+                    android:tag="22"
+                    android:textSize="30sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LL3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button20"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="20"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/button21"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="21"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/button22"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:onClick="clickOnButton"
-                android:tag="22"
-                android:textSize="30sp" />
-        </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/restart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/restart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/switchOpponent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/switchSide"
-        app:layout_constraintTop_toBottomOf="@+id/switchSide" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -3,12 +3,14 @@ package ru.job4j.tictactoy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -16,10 +18,22 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.job4j.tictactoy.db.StatisticDb;
+import ru.job4j.tictactoy.db.WinAndLosses;
+
 public class MainActivity extends AppCompatActivity {
     private final Logic logic = new Logic();
     private final List<Button> buttons = new ArrayList<>();
     private SwitchMaterial switchSide, switchOpponent;
+
+    private TextView numberPlayersTv;
+    private TextView numbersPartiesPlayerTv;
+    private TextView numbersPartiesSecondPlayerTv;
+    private TextView numbersPartiesComputer;
+    private TextView numbersWinAndLosePartiesPlayerTv;
+    private TextView numbersWinAndLosePartiesSecondPlayerTv;
+    private TextView numbersWinAndLosePartiesComputer;
+    private TextView averageBathTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +56,65 @@ public class MainActivity extends AppCompatActivity {
         Button restart = findViewById(R.id.restart);
         restart.setOnClickListener(this::clickOnRestart);
         restart.setText("Restart");
+
+        updateStatistic();
+    }
+
+    @SuppressLint({"StringFormatInvalid", "StringFormatMatches"})
+    private void updateStatistic() {
+        numberPlayersTv = findViewById(R.id.number_players_tv);
+        numbersPartiesPlayerTv = findViewById(R.id.number_parties_players_tv);
+        numbersPartiesSecondPlayerTv = findViewById(R.id.number_parties_second_players_tv);
+        numbersPartiesComputer = findViewById(R.id.number_parties_computer_tv);
+        numbersWinAndLosePartiesPlayerTv = findViewById(R.id.numbers_win_and_losses_player_tv);
+        numbersWinAndLosePartiesSecondPlayerTv = findViewById(R.id.numbers_win_and_losses_second_player_tv);
+        numbersWinAndLosePartiesComputer = findViewById(R.id.numbers_win_and_losses_tv);
+        averageBathTime = findViewById(R.id.numbers_duration_party_tv);
+
+        List<StatisticDb> listStatisticDb = App.getInstance().getDatabase().getStatisticDao().getStatistic();
+
+        if (listStatisticDb != null & listStatisticDb.size() > 0){
+            StatisticDb statisticDb = listStatisticDb.get(0);
+            numberPlayersTv.setText(getString(R.string.count_players, statisticDb.getNumbersPlayers()));
+            numbersPartiesPlayerTv.setText(getString(R.string.count_parties_players, statisticDb.getNumbersPartiesPlayer()));
+            numbersPartiesSecondPlayerTv.setText(getString(R.string.count_parties_second_players, statisticDb.getNumbersPartiesSecondPlayer()));
+            numbersPartiesComputer.setText(getString(R.string.count_parties_computer, statisticDb.getNumbersPartiesComputer()));
+
+            if (statisticDb.getNumbersWinAndLosePartiesPlayer() != null){
+                WinAndLosses winAndLosses = statisticDb.getNumbersWinAndLosePartiesSecondPlayer();
+                numbersWinAndLosePartiesPlayerTv.setText(getString(R.string.count_win_losses_players, winAndLosses.getWin(), winAndLosses.getLosses()));
+            }else {
+                numbersWinAndLosePartiesPlayerTv.setText(getString(R.string.count_win_losses_players, 0, 0));
+            }
+            if (statisticDb.getNumbersWinAndLosePartiesPlayer() != null){
+                WinAndLosses winAndLosses = statisticDb.getNumbersWinAndLosePartiesSecondPlayer();
+                numbersWinAndLosePartiesSecondPlayerTv.setText(getString(R.string.count_win_losses_second_players, winAndLosses.getWin(), winAndLosses.getLosses()));
+            }else {
+                numbersWinAndLosePartiesSecondPlayerTv.setText(getString(R.string.count_win_losses_second_players, 0, 0));
+            }
+            if (statisticDb.getNumbersWinAndLosePartiesPlayer() != null){
+                WinAndLosses winAndLosses = statisticDb.getNumbersWinAndLosePartiesSecondPlayer();
+                numbersWinAndLosePartiesComputer.setText(getString(R.string.count_win_losses_computer, winAndLosses.getWin(), winAndLosses.getLosses()));
+            }else {
+                numbersWinAndLosePartiesComputer.setText(getString(R.string.count_win_losses_computer, 0, 0));
+            }
+            averageBathTime.setText(getString(R.string.count_players, statisticDb.getAverageBathTime()));
+        }else {
+            numberPlayersTv.setText(getString(R.string.count_players, 0));
+            numbersPartiesPlayerTv.setText(getString(R.string.count_parties_players, 0));
+            numbersPartiesSecondPlayerTv.setText(getString(R.string.count_parties_second_players, 0));
+            numbersPartiesComputer.setText(getString(R.string.count_parties_computer, 0));
+            numbersWinAndLosePartiesPlayerTv.setText(getString(R.string.count_win_losses_players, 0, 0));
+            numbersWinAndLosePartiesSecondPlayerTv.setText(getString(R.string.count_win_losses_second_players, 0, 0));
+            numbersWinAndLosePartiesComputer.setText(getString(R.string.count_win_losses_computer, 0, 0));
+            averageBathTime.setText(getString(R.string.count_players, 0));
+        }
     }
 
     public boolean isWin() {
         Toast toast = Toast.makeText(
-                getApplicationContext(), "",
+                getApplicationContext(),
+                "",
                 Toast.LENGTH_SHORT
         );
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -87,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         logic.clearMatrix();
         if (switchSide.isChecked()) {
             logic.changeSide("O");
-        } else logic.changeSide("X");
+        }else logic.changeSide("X");
     }
 
     public void clickSwitchSide(View view) {

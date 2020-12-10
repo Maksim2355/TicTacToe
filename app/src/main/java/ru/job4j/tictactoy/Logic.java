@@ -12,8 +12,7 @@ public class Logic {
     public final int SIZE = 3;
     private String[][] matrix = new String[SIZE][SIZE];
 
-    public Logic() {
-    }
+    public Logic() {}
 
     public Logic(String[][] matrix) {
         this.matrix = matrix;
